@@ -88,6 +88,9 @@ EOW
       "license" => "perl",
       "module_name" => "Mojolicious::Plugin::Cron",
       "recursive_test_files" => 1,
+      "requires" => {
+        "Mojolicious" => 0
+      },
       "test_requires" => {
         "File::Spec" => 0,
         "Module::Metadata" => 0,
