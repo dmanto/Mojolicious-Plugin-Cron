@@ -8,7 +8,7 @@ use Carp 'croak';
 
 our $VERSION = "0.001";
 
-1;
+1; 
 
 =head1 NAME
 
