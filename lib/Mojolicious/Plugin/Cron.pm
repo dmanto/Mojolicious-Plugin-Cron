@@ -10,7 +10,6 @@ our $VERSION = "0.001";
 
 1;
 
-
 =head1 NAME
 
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
