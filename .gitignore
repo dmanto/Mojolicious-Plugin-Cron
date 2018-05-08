@@ -18,3 +18,11 @@ nytprof.out
 *.bs
 /_eumm/
 Mojolicious-Plugin-Cron-*
+/Mojolicious-Plugin-Cron-*
+/.build
+/_build_params
+/Build
+/Build.bat
+!Build/
+!META.json
+!LICENSE

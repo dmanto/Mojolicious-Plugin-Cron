@@ -1,0 +1,3 @@
+author = "Daniel Mantovani <dmanto@cpan.org>"
+license = "Perl_5"
+name = "Mojolicious-Plugin-Cron"
