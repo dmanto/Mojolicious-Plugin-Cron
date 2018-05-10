@@ -10,7 +10,7 @@ use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.001";
+our $VERSION = "0.002";
 use constant CRON_DIR => 'mojo_cron_dir';
 my $totcrons = 0;
 my $crondir;
