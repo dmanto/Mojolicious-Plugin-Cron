@@ -1,5 +1,6 @@
 # NAME
 
+(work in progress)
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
 
 # SYNOPSIS

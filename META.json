@@ -10,7 +10,7 @@
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "Mojolicious-Plugin-Cron",
    "no_index" : {
@@ -42,7 +42,13 @@
       },
       "runtime" : {
          "requires" : {
+            "Algorithm::Cron" : "0",
             "Mojolicious" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::Mock::Time" : "0"
          }
       }
    },
@@ -63,5 +69,5 @@
       "dmanto <dmanto@gmail.com>",
       "vagrant <vagrant@vagrant.vm>"
    ],
-   "x_serialization_backend" : "JSON::PP version 2.27400_02"
+   "x_serialization_backend" : "JSON::PP version 2.94"
 }
