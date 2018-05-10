@@ -1,7 +1,10 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-- first tests passing
+
+0.002 2018-05-10T02:41:49Z
+
+ first tests passing
 
 0.001 2018-05-10T00:32:30Z
 - initial commit
