@@ -2,9 +2,10 @@ Revision history for Perl extension Minilla
 
 {{$NEXT}}
 
+0.003 2018-05-10T14:50:55Z
+    - Separate cron temp directories by mojo mode
 0.002 2018-05-10T02:41:49Z
-
- first tests passing
+    - First tests passing
 
 0.001 2018-05-10T00:32:30Z
-- initial commit
+    - Initial commit

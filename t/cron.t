@@ -25,6 +25,6 @@ $t->get_ok('/')->status_is(200);
 
 ff(600);    # ten minutes from now
 is $local_tstamps[0][5], 118, 'Ok year';
-diag explain [@global_tstamps];
-diag explain [@local_tstamps];
+# diag explain [@global_tstamps];
+# diag explain [@local_tstamps];
 done_testing;

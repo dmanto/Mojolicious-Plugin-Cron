@@ -4,23 +4,22 @@ use warnings;
 package Mojolicious::Plugin::Cron;
 use Mojo::Base 'Mojolicious::Plugin';
 use File::Spec;
-use Mojo::File qw(path);
+use Fcntl ':flock';
+use Mojo::File 'path';
 use Mojo::IOLoop;
 use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.002";
+our $VERSION = "0.003";
 use constant CRON_DIR => 'mojo_cron_dir';
+use constant CRON_WINDOW => 20;    # 20 segs window lock semaphore taken
 my $totcrons = 0;
 my $crondir;
 
 sub register {
   my ($self, $app) = @_;
-
-  # $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, '.cron_version')
-  #   ->make_path->spurt($VERSION);
-
+  $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode)->make_path;
   $app->helper(cron => \&_cron);
 }
 
@@ -40,9 +39,25 @@ sub _cron {
   my $task;
   $task = sub {
     $time = $cron->next_time($time);
+    my $semaphore = $crondir->child(qq{$time.$ncron.lock});
+    my $handle = $semaphore->open('>>') or croak "Cannot open semaphore $!";
     Mojo::IOLoop->timer(
       ($time - time) => sub {
-        $code->();
+        if (flock $handle, (LOCK_EX | LOCK_NB)) {
+          Mojo::IOLoop->timer(
+            CRON_WINDOW,
+            sub {
+              flock($handle, LOCK_UN) or croak "Cannot unlock semaphore - $!";
+              close $handle or croak "Cannot close unlocked semaphore - $!";
+              unlink $semaphore
+                or croak "Cannot unlink unlocked semaphore - $!";
+            }
+          );
+          $code->();
+        }
+        else {
+          close $handle or croak "Cannot close locked semaphore - $!";
+        }
         $task->();
       }
     );
