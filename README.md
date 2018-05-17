@@ -6,12 +6,10 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 # SYNOPSIS
 
     # Mojolicious::Lite
-    plugin Cron;
-
-    cron '*/5 9-17 * * *' => sub {
+    plugin Cron( '*/5 9-17 * * *' => sub {
         my $c = shift;
         # do someting non-blocking but useful
-    }
+    });
 
     get '/' => sub {...}
 
@@ -19,8 +17,8 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) is a [Mojolicious](https://metacpan.org/pod/Mojolicious) plugin that allows to schedule tasks
  directly from inside a Mojolicious application.
-You should not consider it as a cron replacement, but as a method to make a proof of
-concept of a project. Cron is really battle-tested, so final version should use it.
+You should not consider it as a \*nix cron replacement, but as a method to make a proof of
+concept of a project. \*nix cron is really battle-tested, so final version should use it.
 
 # HELPERS
 

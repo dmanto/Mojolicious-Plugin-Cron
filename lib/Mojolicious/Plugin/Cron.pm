@@ -11,39 +11,55 @@ use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.003";
+our $VERSION = "0.004";
 use constant CRON_DIR => 'mojo_cron_dir';
 use constant CRON_WINDOW => 20;    # 20 segs window lock semaphore taken
-my $totcrons = 0;
 my $crondir;
 
 sub register {
-  my ($self, $app) = @_;
+  my ($self, $app, $cronhashes) = @_;
+  croak "No schedules found" unless ref $cronhashes eq 'HASH';
   $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode)->make_path;
-  $app->helper(cron => \&_cron);
+  if (ref((values %$cronhashes)[0]) eq 'CODE') {
+
+    # special case, plugin => 'mm hh dd ...' => sub {}
+    $self->_cron($app->moniker,
+      {crontab => (keys %$cronhashes)[0], code => (values %$cronhashes)[0]});
+  }
+  else {
+    $self->_cron($_, $cronhashes->{$_}) for keys %$cronhashes;
+  }
 }
 
 sub _cron {
-  my ($c, $crontab, $code) = @_;
-  say STDERR "Helper cron called $crontab $code";
-  $crontab and ref $crontab eq ''  or croak "crontab parameter not a string";
-  $code    and ref $code eq 'CODE' or croak "code prameter in not CODE";
-  my $cron = Algorithm::Cron->new(
-    crontab => $crontab,
-    base    => $c->config('cron') // 'local'
-  );
-  my $ncron = ++$totcrons;
-  my $time  = time;
+  my ($self, $sckey, $cronhash) = @_;
+  my $code     = delete $cronhash->{code};
+  my $all_proc = delete $cronhash->{all_proc} // '';
+  my $test_key
+    = delete $cronhash->{__test_key};    # __test_key is for test case only
+  $sckey = $test_key // $sckey;
 
-  # $crontab, $code, $cron, $ncron and $time will be part of the $task closure
+  $cronhash->{base} //= 'local';
+
+  ref $cronhash->{crontab} eq ''
+    or croak "crontab parameter for schedule $sckey not a string";
+  ref $code eq 'CODE' or croak "code parameter for schedule $sckey is not CODE";
+
+  my $cron = Algorithm::Cron->new(%$cronhash);
+  my $time = time;
+
+  # $all_proc, $code, $cron, $sckey and $time will be part of the $task clojure
   my $task;
   $task = sub {
+    my ($semaphore, $handle);
     $time = $cron->next_time($time);
-    my $semaphore = $crondir->child(qq{$time.$ncron.lock});
-    my $handle = $semaphore->open('>>') or croak "Cannot open semaphore $!";
+    if (!$all_proc) {
+      $semaphore = $crondir->child(qq{$time.$sckey.lock});
+      $handle = $semaphore->open('>>') or croak "Cannot open semaphore $!";
+    }
     Mojo::IOLoop->timer(
       ($time - time) => sub {
-        if (flock $handle, (LOCK_EX | LOCK_NB)) {
+        if ($all_proc || flock($handle, (LOCK_EX | LOCK_NB))) {
           Mojo::IOLoop->timer(
             CRON_WINDOW,
             sub {
@@ -52,7 +68,7 @@ sub _cron {
               unlink $semaphore
                 or croak "Cannot unlink unlocked semaphore - $!";
             }
-          );
+          ) unless $all_proc;
           $code->();
         }
         else {
@@ -77,12 +93,10 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 =head1 SYNOPSIS
 
   # Mojolicious::Lite
-  plugin Cron;
-
-  cron '*/5 9-17 * * *' => sub {
+  plugin Cron( '*/5 9-17 * * *' => sub {
       my $c = shift;
       # do someting non-blocking but useful
-  }
+  });
 
   get '/' => sub {...}
 
@@ -90,8 +104,8 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 
 L<Mojolicious::Plugin::Cron> is a L<Mojolicious> plugin that allows to schedule tasks
  directly from inside a Mojolicious application.
-You should not consider it as a cron replacement, but as a method to make a proof of
-concept of a project. Cron is really battle-tested, so final version should use it.
+You should not consider it as a *nix cron replacement, but as a method to make a proof of
+concept of a project. *nix cron is really battle-tested, so final version should use it.
 
 =head1 HELPERS
 
