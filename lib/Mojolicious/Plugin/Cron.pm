@@ -129,17 +129,6 @@ L<Mojolicious::Plugin::Cron> is a L<Mojolicious> plugin that allows to schedule 
 You should not consider it as a *nix cron replacement, but as a method to make a proof of
 concept of a project.
 
-=head1 HELPERS
-
-L<Mojolicious::Plugin::Cron> implements the following helpers.
-
-=head2 cron
-
-Define cron tasks.
-
-# schedule non-blocking task every 10 minutes
-$app->cron('*/10 * * * *' => sub {...});
-
 =head1 METHODS
 
 L<Mojolicious::Plugin::Cron> inherits all methods from

@@ -1,10 +1,9 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-
+    - Pod corrections
 0.005 2018-05-26T23:13:14Z
 	- Prevents tmp directory deletion
-
 0.004 2018-05-17T01:31:23Z
     - Get rid of AUTOLOAD cron
     - New synopsis
