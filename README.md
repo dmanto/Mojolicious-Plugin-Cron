@@ -1,24 +1,46 @@
 # NAME
 
-(work in progress)
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
 
 # SYNOPSIS
 
+    # Execute some job every 5 minutes, from 9 to 5
+
     # Mojolicious::Lite
+
     plugin Cron( '*/5 9-17 * * *' => sub {
-        my $c = shift;
         # do someting non-blocking but useful
     });
 
-    get '/' => sub {...}
+    # Mojolicious
+
+    $self->plugin(Cron => '*/5 9-17 * * *' => sub {
+        # same here
+    });
+
+\# More than one schedule, or more options requires different syntax
+
+    plugin Cron => (
+    sched1 => {
+      base    => 'utc', # not needed for local base
+      crontab => '*/10 15 * * *', # every 10 minutes starting at minute 15, every hour
+      code    => sub {
+        # job 1 here
+      }
+    },
+    sched2 => {
+      crontab => '*/15 15 * * *', # every 15 minutes starting at minute 15, every hour
+      code    => sub {
+        # job 2 here
+      }
+    });
 
 # DESCRIPTION
 
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) is a [Mojolicious](https://metacpan.org/pod/Mojolicious) plugin that allows to schedule tasks
  directly from inside a Mojolicious application.
 You should not consider it as a \*nix cron replacement, but as a method to make a proof of
-concept of a project. \*nix cron is really battle-tested, so final version should use it.
+concept of a project.
 
 # HELPERS
 
@@ -33,9 +55,14 @@ $app->cron('\*/10 \* \* \* \*' => sub {...});
 
 # METHODS
 
+[Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) inherits all methods from
+[Mojolicious::Plugin](https://metacpan.org/pod/Mojolicious::Plugin) and implements the following new ones.
+
 ## register
 
-    $plugin->register
+    $plugin->register(Mojolicious->new, {Cron => '* * * * *' => sub {}});
+
+Register plugin in [Mojolicious](https://metacpan.org/pod/Mojolicious) application.
 
 # AUTHOR
 
