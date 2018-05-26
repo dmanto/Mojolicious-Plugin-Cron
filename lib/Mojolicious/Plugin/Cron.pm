@@ -19,7 +19,7 @@ my $crondir;
 sub register {
   my ($self, $app, $cronhashes) = @_;
   croak "No schedules found" unless ref $cronhashes eq 'HASH';
-  $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode)->make_path;
+  $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode);
   if (ref((values %$cronhashes)[0]) eq 'CODE') {
 
     # special case, plugin => 'mm hh dd ...' => sub {}
@@ -54,8 +54,8 @@ sub _cron {
     my ($semaphore, $handle);
     $time = $cron->next_time($time);
     if (!$all_proc) {
-      $semaphore = $crondir->child(qq{$time.$sckey.lock});
-      $handle = $semaphore->open('>>') or croak "Cannot open semaphore $!";
+      $semaphore = $crondir->make_path->child(qq{$time.$sckey.lock});
+      $handle = $semaphore->open('>>') or croak "Cannot open semaphore file $!";
     }
     Mojo::IOLoop->timer(
       ($time - time) => sub {
@@ -87,25 +87,47 @@ sub _cron {
 
 =head1 NAME
 
-(work in progress)
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
 
 =head1 SYNOPSIS
 
+  # Execute some job every 5 minutes, from 9 to 5
+
   # Mojolicious::Lite
+
   plugin Cron( '*/5 9-17 * * *' => sub {
-      my $c = shift;
       # do someting non-blocking but useful
   });
 
-  get '/' => sub {...}
+  # Mojolicious
+
+  $self->plugin(Cron => '*/5 9-17 * * *' => sub {
+      # same here
+  });
+
+# More than one schedule, or more options requires different syntax
+
+  plugin Cron => (
+  sched1 => {
+    base    => 'utc', # not needed for local base
+    crontab => '*/10 15 * * *', # every 10 minutes starting at minute 15, every hour
+    code    => sub {
+      # job 1 here
+    }
+  },
+  sched2 => {
+    crontab => '*/15 15 * * *', # every 15 minutes starting at minute 15, every hour
+    code    => sub {
+      # job 2 here
+    }
+  });
 
 =head1 DESCRIPTION
 
 L<Mojolicious::Plugin::Cron> is a L<Mojolicious> plugin that allows to schedule tasks
  directly from inside a Mojolicious application.
 You should not consider it as a *nix cron replacement, but as a method to make a proof of
-concept of a project. *nix cron is really battle-tested, so final version should use it.
+concept of a project.
 
 =head1 HELPERS
 
@@ -120,10 +142,15 @@ $app->cron('*/10 * * * *' => sub {...});
 
 =head1 METHODS
 
+L<Mojolicious::Plugin::Cron> inherits all methods from
+L<Mojolicious::Plugin> and implements the following new ones.
+
 =head2 register
 
-    $plugin->register
+  $plugin->register(Mojolicious->new, {Cron => '* * * * *' => sub {}});
 
+Register plugin in L<Mojolicious> application.
+ 
 =head1 AUTHOR
 
 Daniel Mantovani, C<dmanto@cpan.org>
