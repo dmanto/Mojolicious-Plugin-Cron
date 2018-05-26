@@ -42,17 +42,6 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 You should not consider it as a \*nix cron replacement, but as a method to make a proof of
 concept of a project.
 
-# HELPERS
-
-[Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) implements the following helpers.
-
-## cron
-
-Define cron tasks.
-
-\# schedule non-blocking task every 10 minutes
-$app->cron('\*/10 \* \* \* \*' => sub {...});
-
 # METHODS
 
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) inherits all methods from
