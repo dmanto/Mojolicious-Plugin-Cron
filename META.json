@@ -42,14 +42,15 @@
       },
       "runtime" : {
          "requires" : {
-            "Algorithm::Cron" : "0",
-            "Mojolicious" : "0"
+            "Algorithm::Cron" : "0.10",
+            "Mojolicious" : "7.82",
+            "perl" : "5.020001"
          }
       },
       "test" : {
          "requires" : {
-            "Test2::V0" : "0",
-            "Test::Mock::Time" : "0"
+            "Test2::V0" : "0.000114",
+            "Test::Mock::Time" : "v0.1.7"
          }
       }
    },
