@@ -64,7 +64,7 @@ Register plugin in [Mojolicious](https://metacpan.org/pod/Mojolicious) applicati
 # WINDOWS INSTALLATION
 
 To install in windows environments, you need to force-install module
-Test::Mock::Time, or testings will fail.
+Test::Mock::Time, or installation tests will fail.
 
 # AUTHOR
 
