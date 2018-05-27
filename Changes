@@ -1,7 +1,7 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-
+    - adds simple example
 0.015 2018-05-27T16:55:07Z
     - waits for ioloop to start with ->next_tick
     - added pod info for extended syntax
