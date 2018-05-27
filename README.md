@@ -18,7 +18,7 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
         # same here
     });
 
-\# More than one schedule, or more options requires different syntax
+\# More than one schedule, or more options requires extended syntax
 
     plugin Cron => (
     sched1 => {
@@ -42,6 +42,13 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 You should not consider it as a \*nix cron replacement, but as a method to make a proof of
 concept of a project.
 
+# BASICS
+
+When using preforked servers (as applications running with hypnotoad), some coordination
+is needed so jobs are not executed several times.
+[Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) uses standard Fcntl functions for that coordination, to assure
+a platform-independent behavior.
+
 # METHODS
 
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) inherits all methods from
@@ -52,6 +59,11 @@ concept of a project.
     $plugin->register(Mojolicious->new, {Cron => '* * * * *' => sub {}});
 
 Register plugin in [Mojolicious](https://metacpan.org/pod/Mojolicious) application.
+
+# WINDOWS INSTALLATION
+
+To install in windows environments, you need to force-install module
+Test::Mock::Time, or testings will fail.
 
 # AUTHOR
 
@@ -66,4 +78,4 @@ the terms of the Artistic License version 2.0.
 
 # SEE ALSO
 
-[Mojolicious](https://metacpan.org/pod/Mojolicious), [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides), [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins)
+[Mojolicious](https://metacpan.org/pod/Mojolicious), [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides), [Mojolicious::Plugins](https://metacpan.org/pod/Mojolicious::Plugins), [Algorithm::Cron](https://metacpan.org/pod/Algorithm::Cron)

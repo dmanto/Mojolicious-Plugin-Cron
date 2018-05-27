@@ -64,7 +64,7 @@
          "web" : "https://github.com/dmanto/Mojolicious-Plugin-Cron"
       }
    },
-   "version" : "0.006",
+   "version" : "0.007",
    "x_contributors" : [
       "dmanto <dmanto@gmail.com>",
       "vagrant <vagrant@vagrant.vm>"
