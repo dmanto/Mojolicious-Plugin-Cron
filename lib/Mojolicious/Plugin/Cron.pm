@@ -105,7 +105,7 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
       # same here
   });
 
-# More than one schedule, or more options requires different syntax
+# More than one schedule, or more options requires extended syntax
 
   plugin Cron => (
   sched1 => {
@@ -129,6 +129,13 @@ L<Mojolicious::Plugin::Cron> is a L<Mojolicious> plugin that allows to schedule 
 You should not consider it as a *nix cron replacement, but as a method to make a proof of
 concept of a project.
 
+=head1 BASICS
+
+When using preforked servers (as applications running with hypnotoad), some coordination
+is needed so jobs are not executed several times.
+L<Mojolicious::Plugin::Cron> uses standard Fcntl functions for that coordination, to assure
+a platform-independent behavior.
+
 =head1 METHODS
 
 L<Mojolicious::Plugin::Cron> inherits all methods from
@@ -139,7 +146,12 @@ L<Mojolicious::Plugin> and implements the following new ones.
   $plugin->register(Mojolicious->new, {Cron => '* * * * *' => sub {}});
 
 Register plugin in L<Mojolicious> application.
- 
+
+=head1 WINDOWS INSTALLATION
+
+To install in windows environments, you need to force-install module
+Test::Mock::Time, or testings will fail.
+
 =head1 AUTHOR
 
 Daniel Mantovani, C<dmanto@cpan.org>
@@ -153,6 +165,6 @@ the terms of the Artistic License version 2.0.
 
 =head1 SEE ALSO
 
-L<Mojolicious>, L<Mojolicious::Guides>, L<Mojolicious::Plugins>
+L<Mojolicious>, L<Mojolicious::Guides>, L<Mojolicious::Plugins>, L<Algorithm::Cron>
 
 =cut

@@ -1,7 +1,7 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-
+    - Adds travis & appveyor tests
 0.006 2018-05-26T23:16:48Z
     - Pod corrections
 0.005 2018-05-26T23:13:14Z
