@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.017 2018-05-27T23:12:25Z
     - minimal version on cpanfile requirements
 0.016 2018-05-27T17:09:48Z
     - adds simple example
