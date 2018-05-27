@@ -20,15 +20,17 @@ sub register {
   my ($self, $app, $cronhashes) = @_;
   croak "No schedules found" unless ref $cronhashes eq 'HASH';
   $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode);
-  if (ref((values %$cronhashes)[0]) eq 'CODE') {
+  Mojo::IOLoop->next_tick(sub {
+    if (ref((values %$cronhashes)[0]) eq 'CODE') {
 
-    # special case, plugin => 'mm hh dd ...' => sub {}
-    $self->_cron($app->moniker,
-      {crontab => (keys %$cronhashes)[0], code => (values %$cronhashes)[0]});
-  }
-  else {
-    $self->_cron($_, $cronhashes->{$_}) for keys %$cronhashes;
-  }
+      # special case, plugin => 'mm hh dd ...' => sub {}
+      $self->_cron($app->moniker,
+        {crontab => (keys %$cronhashes)[0], code => (values %$cronhashes)[0]});
+    }
+    else {
+      $self->_cron($_, $cronhashes->{$_}) for keys %$cronhashes;
+    }
+  });
 }
 
 sub _cron {
@@ -109,7 +111,7 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 
   plugin Cron => (
   sched1 => {
-    base    => 'utc', # not needed for local base
+    base    => 'utc', # not needed for local time
     crontab => '*/10 15 * * *', # every 10 minutes starting at minute 15, every hour
     code    => sub {
       # job 1 here
@@ -135,6 +137,49 @@ When using preforked servers (as applications running with hypnotoad), some coor
 is needed so jobs are not executed several times.
 L<Mojolicious::Plugin::Cron> uses standard Fcntl functions for that coordination, to assure
 a platform-independent behavior.
+
+=head1 EXTENDEND SYNTAX HASH
+
+When using extended syntax, you can define more than one crontab line, and have access
+to more options
+
+  plugin Cron => {key1 => {crontab line 1}, key2 => {crontab line 2}, ...};
+
+=head2 Keys
+
+Keys are the names that identify each crontab line. They are used to form the locking semaphore
+to avoid multiple processes starting the same job. You can use the same name in different Mojolicious
+applications, and this will ensure that not more that one instance of the cron job will take place at
+a specific scheduled time.
+
+=head2 Crontab lines
+
+Each crontab line consists of a hash with the following keys:
+
+=over 8
+ 
+=item base => STRING
+ 
+Gives the time base used for scheduling. Either C<utc> or C<local>.
+ 
+=item crontab => STRING
+ 
+Gives the crontab schedule in 5 or 6 space-separated fields.
+ 
+=item sec => STRING, min => STRING, ... mon => STRING
+ 
+Optional. Gives the schedule in a set of individual fields, if the C<crontab>
+field is not specified.
+
+For more information on base, crontab and other time related keys,
+ please refer to L<Algorithm::Cron> Contstructor Attributes. 
+
+=item code => sub {}
+
+Mandatory. Is the code that will be executed whenever the crontab rule fires.
+Note that this code *MUST* be non-blocking.
+
+=back
 
 =head1 METHODS
 
