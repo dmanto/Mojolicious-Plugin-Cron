@@ -150,7 +150,7 @@ Register plugin in L<Mojolicious> application.
 =head1 WINDOWS INSTALLATION
 
 To install in windows environments, you need to force-install module
-Test::Mock::Time, or testings will fail.
+Test::Mock::Time, or installation tests will fail.
 
 =head1 AUTHOR
 
