@@ -11,7 +11,7 @@ use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.014";
+our $VERSION = "0.015";
 use constant CRON_DIR => 'mojo_cron_dir';
 use constant CRON_WINDOW => 20;    # 20 segs window lock semaphore taken
 my $crondir;
