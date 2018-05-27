@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.012 2018-05-27T02:38:50Z
     - First cpan release
 0.011 2018-05-27T01:56:13Z
     - travis: perl versions 5.22+
