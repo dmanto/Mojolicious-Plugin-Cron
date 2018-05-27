@@ -1,7 +1,7 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-
+    - travis: perl versions 5.22+
 0.010 2018-05-27T00:26:41Z
 	- Added badges for travis & appveyor
 0.009 2018-05-27T00:19:45Z
@@ -21,6 +21,5 @@ Revision history for Perl extension Minilla
     - Separate cron temp directories by mojo mode
 0.002 2018-05-10T02:41:49Z
     - First tests passing
-
 0.001 2018-05-10T00:32:30Z
     - Initial commit
