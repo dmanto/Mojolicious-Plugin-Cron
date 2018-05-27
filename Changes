@@ -1,7 +1,7 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
-
+    - Fix .travis & .appveyor files location (move to repo root)
 0.007 2018-05-27T00:03:21Z
     - Adds travis & appveyor tests
 0.006 2018-05-26T23:16:48Z
