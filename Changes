@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.011 2018-05-27T01:56:13Z
     - travis: perl versions 5.22+
 0.010 2018-05-27T00:26:41Z
 	- Added badges for travis & appveyor
