@@ -48,6 +48,7 @@
       },
       "test" : {
          "requires" : {
+            "Test2::V0" : "0",
             "Test::Mock::Time" : "0"
          }
       }
@@ -64,7 +65,7 @@
          "web" : "https://github.com/dmanto/Mojolicious-Plugin-Cron"
       }
    },
-   "version" : "0.008",
+   "version" : "0.009",
    "x_contributors" : [
       "dmanto <dmanto@gmail.com>",
       "vagrant <vagrant@vagrant.vm>"
