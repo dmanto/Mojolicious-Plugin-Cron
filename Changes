@@ -2,6 +2,8 @@ Revision history for Perl extension Minilla
 
 {{$NEXT}}
 
+0.010 2018-05-27T00:26:41Z
+	- Added badges for travis & appveyor
 0.009 2018-05-27T00:19:45Z
     - Added Test2::V0 dependency
 0.008 2018-05-27T00:11:00Z

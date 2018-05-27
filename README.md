@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dmanto/Mojolicious-Plugin-Cron.svg?branch=master)](https://travis-ci.org/dmanto/Mojolicious-Plugin-Cron) [![Build Status](https://img.shields.io/appveyor/ci/dmanto/Mojolicious-Plugin-Cron/master.svg?logo=appveyor)](https://ci.appveyor.com/project/dmanto/Mojolicious-Plugin-Cron/branch/master)
 # NAME
 
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
