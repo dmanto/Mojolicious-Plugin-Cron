@@ -72,7 +72,6 @@ sub _cron {
           my $rtime = $1
             if (-e $dat && $dat->slurp // '') =~ /(\d+)/;   # do some untainting
           $rtime //= '0';
-          say STDERR time.": $sckey $time $rtime";
           if ($rtime != $time) {
             $dat->spurt($time);
             $fire = 1;
