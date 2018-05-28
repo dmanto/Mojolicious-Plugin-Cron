@@ -7,6 +7,7 @@ use Mojo::File qw(tempdir path);
 use Mojolicious::Lite;
 
 BEGIN {
+  $ENV{MOJO_NO_TLS}  = 1;
   $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
 }
 

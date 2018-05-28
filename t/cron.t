@@ -6,6 +6,7 @@ use Algorithm::Cron;
 use Mojolicious::Lite;
 
 BEGIN {
+  $ENV{MOJO_NO_TLS}  = 1;
   $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
 }
 
