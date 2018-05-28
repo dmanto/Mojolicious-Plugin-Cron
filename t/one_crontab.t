@@ -16,6 +16,7 @@ diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   '*/10 15 * * *' => sub {
+    diag('********** ingreso a cron CODE *************');
     $local_tstamps{fmt_time(localtime)}++;
     Mojo::IOLoop->stop;
   }
