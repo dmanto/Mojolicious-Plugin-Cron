@@ -1,3 +1,6 @@
+BEGIN {
+  $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
+}
 use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
@@ -5,11 +8,6 @@ use Algorithm::Cron;
 use Mojo::File qw(tempdir path);
 
 use Mojolicious::Lite;
-
-BEGIN {
-  $ENV{MOJO_NO_TLS}  = 1;
-  $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
-}
 
 $ENV{MOJO_MODE} = 'test';
 my %local_tstamps;
