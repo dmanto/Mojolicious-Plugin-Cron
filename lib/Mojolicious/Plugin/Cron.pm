@@ -11,7 +11,7 @@ use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.021";
+our $VERSION = "0.022";
 use constant CRON_DIR => 'mojo_cron_dir';
 my $crondir;
 
