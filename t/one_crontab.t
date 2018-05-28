@@ -47,6 +47,9 @@ is \%local_tstamps,
   },         # no more because hour is always 15 utc
   'exact tstamps';
 
+diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
+diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
+
 done_testing;
 
 sub fmt_time {
