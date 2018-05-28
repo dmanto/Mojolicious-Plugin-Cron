@@ -11,7 +11,7 @@ my %local_tstamps;
 my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
 path($tmpdir)->child('mojo_cron_dir', 'test')->make_path;
 diag("Running $0, directory $tmpdir");
-diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
+diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
 
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
@@ -50,7 +50,7 @@ is \%local_tstamps,
   },         # no more because hour is always 15 utc
   'exact tstamps';
 
-diag(`ls -lai $tmpdir/mojo_cron_dir`);
+diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
 diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
 done_testing;
