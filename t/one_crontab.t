@@ -23,7 +23,7 @@ plugin Cron => (
 
 get '/' => {text => 'Hello, world'};
 
-diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
+diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
 diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
 my $t = Test::Mojo->new;

@@ -6,6 +6,7 @@ perl:
 env:
   global:
     - HARNESS_OPTIONS=j9
+    - TMPDIR=/tmp
 install:
   - cpanm -n EV IO::Socket::Socks IO::Socket::SSL Net::DNS::Native Role::Tiny Test::Pod Test::Pod::Coverage
   - cpanm -n --installdeps .
