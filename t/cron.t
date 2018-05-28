@@ -8,7 +8,7 @@ use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %global_tstamps;
-my $tmpdir = tempdir('cronXXXX')->to_abs->to_string;
+my $tmpdir = tempdir('cronXXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
 
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
