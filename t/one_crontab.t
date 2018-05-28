@@ -2,14 +2,17 @@ use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
 use Algorithm::Cron;
-use Mojo::File 'tempdir';
+use Mojo::File qw(tempdir path);
 
 use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %local_tstamps;
-#my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
-my $tmpdir = '/tmp';
+my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
+path($tmpdir)->child('mojo_cron_dir', 'test')->make_path;
+diag("Running $0, directory $tmpdir");
+diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
+
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   '*/10 15 * * *' => sub {
@@ -20,7 +23,6 @@ plugin Cron => (
 
 get '/' => {text => 'Hello, world'};
 
-diag("Running $0, directory $tmpdir");
 diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
 diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
