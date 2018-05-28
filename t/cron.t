@@ -8,7 +8,7 @@ use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %global_tstamps;
-my $tmpdir = tempdir('cronXXXX');
+my $tmpdir = tempdir('cronXXXX')->to_abs->to_string;
 
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
@@ -82,6 +82,8 @@ plugin Cron => (
 );
 
 get '/' => {text => 'Hello, world'};
+
+diag("Running $0, directory $tmpdir");
 
 my $t = Test::Mojo->new;
 $t->get_ok('/')->status_is(200);
