@@ -70,7 +70,7 @@ sub _cron {
             or croak "Cannot open semaphore file $!";
           flock($handle_sem, LOCK_EX);
           my $rtime = $1
-            if ((-e $dat && $dat->slurp // '') =~ /(\d+)/); # do some untainting
+            if (-e $dat && $dat->slurp // '') =~ /(\d+)/;   # do some untainting
           $rtime //= '0';
           if ($rtime != $time) {
             $dat->spurt($time);
