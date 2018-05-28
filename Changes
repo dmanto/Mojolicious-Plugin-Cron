@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.018 2018-05-28T03:29:22Z
     - use temporary directory for tests
 0.017 2018-05-27T23:12:25Z
     - minimal version on cpanfile requirements
