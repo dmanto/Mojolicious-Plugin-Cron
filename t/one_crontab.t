@@ -8,7 +8,8 @@ use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %local_tstamps;
-my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
+#my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
+my $tmpdir = '/tmp';
 plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   '*/10 15 * * *' => sub {
@@ -47,7 +48,7 @@ is \%local_tstamps,
   },         # no more because hour is always 15 utc
   'exact tstamps';
 
-diag(`ls -lai $tmpdir/mojo_cron_dir/test`);
+diag(`ls -lai $tmpdir/mojo_cron_dir`);
 diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
 done_testing;
