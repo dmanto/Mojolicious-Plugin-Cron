@@ -11,7 +11,7 @@ use Algorithm::Cron;
 
 use Carp 'croak';
 
-our $VERSION = "0.017";
+our $VERSION = "0.014";
 use constant CRON_DIR => 'mojo_cron_dir';
 use constant CRON_WINDOW => 20;    # 20 segs window lock semaphore taken
 my $crondir;
@@ -19,7 +19,7 @@ my $crondir;
 sub register {
   my ($self, $app, $cronhashes) = @_;
   croak "No schedules found" unless ref $cronhashes eq 'HASH';
-  $crondir = path(File::Spec->tmpdir)->child(CRON_DIR, $app->mode);
+  $crondir = path($app->config->{cron}{dir} // File::Spec->tmpdir)->child(CRON_DIR, $app->mode);
   Mojo::IOLoop->next_tick(sub {
     if (ref((values %$cronhashes)[0]) eq 'CODE') {
 

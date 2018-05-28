@@ -2,11 +2,15 @@ use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
 use Algorithm::Cron;
+use Mojo::File 'tempdir';
 
 use Mojolicious::Lite;
 
+$ENV{MOJO_MODE} = 'test';
 my %global_tstamps;
+my $tmpdir = tempdir('cronXXXX');
 
+plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   sched1 => {
     base    => 'utc',

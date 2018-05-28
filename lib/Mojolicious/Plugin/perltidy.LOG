@@ -1,0 +1,95 @@
+perltidy version 20180220 log file on a MSWin32 system, OLD_PERL_VERSION=5.026001
+Windows type is NT4
+Found Configuration File >>> C:\Users\dmant\.perltidyrc 
+Configuration and command line parameters for this run:
+-pbp -w -iob -l=80 -mbl=2 -i=2 -ci=2 -vt=0 -pt=2 -bt=2 -sbt=2 -wn -isbc -st
+To find error messages search for 'WARNING' with your editor
+Indentation will be with 2 spaces
+Line 1 implies starting-indentation-level = 0
+
+########################  WARNING  #########################
+67: if (!$all_proc) {
+                    ^
+68: $loop->timer(CRON_WINDOW, \&unlock_file($handle, $semaphore) });
+                ^
+68: ...  \&unlock_file($handle, $semaphore) });
+                                            ^
+Found 1 extra '(' between '{' on line 67 and '}' on line 68
+    The most recent un-matched '(' is on line 68
+############################################################
+WARNING: expecting 'else' to follow one of 'if|elsif|unless|case|when'
+
+########################  WARNING  #########################
+56: $task = sub {
+                ^
+63: Mojo::IOLoop->timer(
+                       ^
+76: }
+    ^
+Found 1 extra '(' between '{' on line 56 and '}' on line 76
+    The most recent un-matched '(' is on line 63
+############################################################
+
+########################  WARNING  #########################
+There is no previous '{' to match a '}' on line 80
+80: }
+    ^
+############################################################
+WARNING: Starting negative indentation
+WARNING: resetting level to 0 at sub unlock_file
+Entering POD section
+Exiting POD section
+passing VERSION line; -npvl deactivates
+The nesting depths in the table below are at the start of the lines.
+The indicated output line numbers are not always exact.
+ci = levels of continuation indentation; bk = 1 if in BLOCK, 0 if not.
+
+in:out indent c b  nesting   code + messages; (messages begin with >>>)
+lines  levels i k            (code begins with one '.' per indent level)
+------  ----- - - --------   -------------------------------------------
+L4:4     i0:0 0 1            package Mojolicious::Plugin::Cron;
+L20:20   i0:0 0 1            sub register {
+L37:37   i0:0 0 1            sub _cron {
+L68:68   i6:6 0 1 {{({{{     >>>Added ';' here
+L69:72   i5:4 0 1 (1 [0 {4   >>>Start indentation disagreement: input=5; output=4
+L78:81   i1:0 0 1 (0 [0 {1   >>>Deleted unnecessary ';'
+L80:83   i0:-1 0 1 (0 [0 {0   >>>WARNING: Program bug in scan_list: hit nesting error which should have been caught
+L82:85   i0:0 0 1 (0 [0 {0   sub unlock_file {
+L82:85   i0:0 0 1 (0 [0 {0   >>>End indentation disagreement from input line 69
+L84:87   i7:1 0 1 (0 [0 {1   >>>Start indentation disagreement: input=7; output=1
+L88:90   i0:0 0 1 (0 [0 {1   >>>End indentation disagreement from input line 84
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 13 characters
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 4 characters
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 4 characters
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 5 characters
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 9 characters
+L89:90   i0:0 0 1 (0 [0 {0   >>>Line length exceeded by 8 characters
+1 semicolon was added:
+   at input line 68
+  (Use -nasc to prevent semicolon addition)
+
+1 unnecessary semicolon was deleted:
+   at input line 78
+  (Use -ndsc to prevent semicolon deletion)
+
+First indentation disagreement seen at input line 69
+Last indentation disagreement seen at input line 86
+Note: Indentation disagreement detection is not accurate for outdenting and -lp.
+
+12 output lines exceeded 80 characters:
+ First at line 97 by 13 characters
+ Maximum at line 156 by 21 characters
+ Last at line 218 by 3 characters
+WARNING: To save a full .LOG file rerun with -g
+WARNING: 
+Oops, you seem to have encountered a bug in perltidy.  Please check the
+BUGS file at http://perltidy.sourceforge.net.  If the problem is not
+listed there, please report it so that it can be corrected.  Include the
+smallest possible script which produces this message, along with the
+.LOG file if appropriate.  See the manual pages for contact information.
+Your efforts are appreciated.  
+Thank you!
+WARNING: 
+The log file shows that perltidy added 1 semicolons.
+Please rerun with -nasc to see if that is the cause of the syntax error.  Even
+if that is the problem, please report it so that it can be fixed.
