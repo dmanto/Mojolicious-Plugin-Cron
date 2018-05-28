@@ -2,15 +2,12 @@ use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
 use Algorithm::Cron;
-use Mojo::File 'tempdir';
 
 use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %global_tstamps;
-my $tmpdir = tempdir('cronXXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
 
-plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   sched1 => {
     base    => 'utc',
@@ -33,7 +30,7 @@ plugin Cron => (
 # pids. Like in prefork or hypnotoad servers
   sched3 => {
     base    => 'utc',
-    crontab => '59 15 * * *',
+    crontab => '58,59 15 * * *', # 58 will allow to unlock the crontab once
     code    => sub {
       $global_tstamps{fmt_time(gmtime)}{sched3}++;
       Mojo::IOLoop->stop;
@@ -83,8 +80,6 @@ plugin Cron => (
 
 get '/' => {text => 'Hello, world'};
 
-diag("Running $0, directory $tmpdir");
-
 my $t = Test::Mojo->new;
 $t->get_ok('/')->status_is(200);
 
@@ -105,6 +100,7 @@ is \%global_tstamps, {
   "$gday 15:40" => {sched1 => 1},
   "$gday 15:45" => {sched2 => 1},
   "$gday 15:50" => {sched1 => 1},
+  "$gday 15:58" => {sched3 => 1},
   "$gday 15:59" => {
     sched3 => 1,                                  # means locking works
     sched4 => 2                                   # means all_proc flag works

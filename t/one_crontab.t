@@ -2,14 +2,12 @@ use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
 use Algorithm::Cron;
-use Mojo::File 'tempdir';
 
 use Mojolicious::Lite;
 
 $ENV{MOJO_MODE} = 'test';
 my %local_tstamps;
-my $tmpdir = tempdir('cronXXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
-plugin Config => {default => {cron => {dir => $tmpdir}}};
+
 plugin Cron => (
   '*/10 15 * * *' => sub {
     $local_tstamps{fmt_time(localtime)}++;
@@ -18,8 +16,6 @@ plugin Cron => (
 );
 
 get '/' => {text => 'Hello, world'};
-
-diag("Running $0, directory $tmpdir");
 
 my $t = Test::Mojo->new;
 $t->get_ok('/')->status_is(200);

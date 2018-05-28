@@ -13,13 +13,13 @@ use Carp 'croak';
 
 our $VERSION = "0.021";
 use constant CRON_DIR => 'mojo_cron_dir';
-use constant CRON_WINDOW => 20;    # 20 segs window lock semaphore taken
 my $crondir;
 
 sub register {
   my ($self, $app, $cronhashes) = @_;
   croak "No schedules found" unless ref $cronhashes eq 'HASH';
-  $crondir = path($app->config->{cron}{dir} // File::Spec->tmpdir)->child(CRON_DIR, $app->mode);
+  $crondir = path($app->config->{cron}{dir} // File::Spec->tmpdir)
+    ->child(CRON_DIR, $app->mode);
   Mojo::IOLoop->next_tick(sub {
     if (ref((values %$cronhashes)[0]) eq 'CODE') {
 
@@ -53,29 +53,33 @@ sub _cron {
   # $all_proc, $code, $cron, $sckey and $time will be part of the $task clojure
   my $task;
   $task = sub {
-    my ($semaphore, $handle);
     $time = $cron->next_time($time);
     if (!$all_proc) {
-      $semaphore = $crondir->make_path->child(qq{$time.$sckey.lock});
-      $handle = $semaphore->open('>>') or croak "Cannot open semaphore file $!";
     }
     Mojo::IOLoop->timer(
       ($time - time) => sub {
-        if ($all_proc || flock($handle, (LOCK_EX | LOCK_NB))) {
-          Mojo::IOLoop->timer(
-            CRON_WINDOW,
-            sub {
-              flock($handle, LOCK_UN) or croak "Cannot unlock semaphore - $!";
-              close $handle or croak "Cannot close unlocked semaphore - $!";
-              unlink $semaphore
-                or croak "Cannot unlink unlocked semaphore - $!";
-            }
-          ) unless $all_proc;
-          $code->();
+        my $fire;
+        if ($all_proc) {
+          $fire = 1;
         }
         else {
-          close $handle or croak "Cannot close locked semaphore - $!";
+          my $dat = $crondir->child("$sckey.time");
+          my $sem = $crondir->child("$sckey.time.lock");
+          $crondir->make_path;    # ensure path exists
+          my $handle_sem = $sem->open('>')
+            or croak "Cannot open semaphore file $!";
+          flock($handle_sem, LOCK_EX);
+          my $rtime = $1
+            if ((-e $dat && $dat->slurp // '') =~ /(\d+)/); # do some untainting
+          $rtime //= '0';
+          if ($rtime != $time) {
+            $dat->spurt($time);
+            $fire = 1;
+          }
+          undef $dat;
+          undef $sem;                                       # unlock
         }
+        $code->() if $fire;
         $task->();
       }
     );
