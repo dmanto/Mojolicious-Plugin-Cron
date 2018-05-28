@@ -5,6 +5,10 @@ use Algorithm::Cron;
 
 use Mojolicious::Lite;
 
+BEGIN {
+  $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
+}
+
 $ENV{MOJO_MODE} = 'test';
 my %global_tstamps;
 
@@ -30,7 +34,7 @@ plugin Cron => (
 # pids. Like in prefork or hypnotoad servers
   sched3 => {
     base    => 'utc',
-    crontab => '58,59 15 * * *', # 58 will allow to unlock the crontab once
+    crontab => '58,59 15 * * *',    # 58 will allow to unlock the crontab once
     code    => sub {
       $global_tstamps{fmt_time(gmtime)}{sched3}++;
       Mojo::IOLoop->stop;

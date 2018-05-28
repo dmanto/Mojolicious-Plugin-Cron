@@ -6,14 +6,13 @@ use Mojo::File qw(tempdir path);
 
 use Mojolicious::Lite;
 
+BEGIN {
+  $ENV{MOJO_REACTOR} = 'Mojo::Reactor::Poll';
+}
+
 $ENV{MOJO_MODE} = 'test';
 my %local_tstamps;
-my $tmpdir = tempdir('cron_XXXX')->remove_tree({keep_root => 1})->to_abs->to_string;
-path($tmpdir)->child('mojo_cron_dir', 'test')->make_path;
-diag("Running $0, directory $tmpdir");
-diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
 
-plugin Config => {default => {cron => {dir => $tmpdir}}};
 plugin Cron => (
   '*/10 15 * * *' => sub {
     diag('********** ingreso a cron CODE *************');
@@ -23,9 +22,6 @@ plugin Cron => (
 );
 
 get '/' => {text => 'Hello, world'};
-
-diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
-diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
 my $t = Test::Mojo->new;
 $t->get_ok('/')->status_is(200);
@@ -50,9 +46,6 @@ is \%local_tstamps,
   "$lday 15:50" => 1,
   },         # no more because hour is always 15 utc
   'exact tstamps';
-
-diag(`ls -lai $tmpdir/mojo_cron_dir/test/`);
-diag(`tail -n +1 $tmpdir/mojo_cron_dir/test/*.time`);
 
 done_testing;
 
