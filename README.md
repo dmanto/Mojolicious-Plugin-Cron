@@ -70,7 +70,7 @@ Each crontab line consists of a hash with the following keys:
 
 - base => STRING
 
-    Gives the time base used for scheduling. Either `utc` or `local`.
+    Gives the time base used for scheduling. Either `utc` or `local` (default `local`.
 
 - crontab => STRING
 

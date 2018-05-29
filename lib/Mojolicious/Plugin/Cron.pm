@@ -1,6 +1,3 @@
-use strict;
-use warnings;
-
 package Mojolicious::Plugin::Cron;
 use Mojo::Base 'Mojolicious::Plugin';
 use File::Spec;
@@ -164,7 +161,7 @@ Each crontab line consists of a hash with the following keys:
  
 =item base => STRING
  
-Gives the time base used for scheduling. Either C<utc> or C<local>.
+Gives the time base used for scheduling. Either C<utc> or C<local> (default C<local>.
  
 =item crontab => STRING
  

@@ -5,7 +5,6 @@ use Test::Mock::Time;
 use Test2::V0;
 use Test::Mojo;
 use Algorithm::Cron;
-use Mojo::File qw(tempdir path);
 
 use Mojolicious::Lite;
 
@@ -14,7 +13,6 @@ my %local_tstamps;
 
 plugin Cron => (
   '*/10 15 * * *' => sub {
-    diag('********** ingreso a cron CODE *************');
     $local_tstamps{fmt_time(localtime)}++;
     Mojo::IOLoop->stop;
   }
