@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.023 2018-05-29T00:17:22Z
     - using Mojo::Reactor::Poll in tests
 0.022 2018-05-28T19:15:55Z
     - new locking scheme, one file per cron line
