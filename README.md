@@ -40,9 +40,11 @@ Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::
 
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) is a [Mojolicious](https://metacpan.org/pod/Mojolicious) plugin that allows to schedule tasks
  directly from inside a Mojolicious application.
+
 You should not consider it as a \*nix cron replacement, but as a method to make a proof of
 concept of a project. It helps also in the deployment phase because in the end it
 could mean less and simpler installation/removing tasks.
+
 As an extension to regular cron, seconds are supported in the form of a sixth space
 sepparated field (For more information on cron sintax please see [Algorithm::Cron](https://metacpan.org/pod/Algorithm::Cron)).
 
@@ -50,8 +52,13 @@ sepparated field (For more information on cron sintax please see [Algorithm::Cro
 
 When using preforked servers (as applications running with hypnotoad), some coordination
 is needed so jobs are not executed several times.
+
 [Mojolicious::Plugin::Cron](https://metacpan.org/pod/Mojolicious::Plugin::Cron) uses standard Fcntl functions for that coordination, to assure
 a platform-independent behavior.
+
+Please take a look in the examples section, for a simple Mojo Application that you can
+run on hypnotoad, try hot restarts, adding / removing workers, etc, and
+check that scheduled jobs execute without interruptions or duplications.
 
 # EXTENDEND SYNTAX HASH
 
@@ -64,6 +71,7 @@ to more options
 
 Keys are the names that identify each crontab line. They are used to form a locking 
 semaphore file to avoid multiple processes starting the same job. 
+
 You can use the same name in different Mojolicious applications that will run
 at the same time. This will ensure that not more that one instance of the cron job
 will take place at a specific scheduled time. 

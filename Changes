@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.024 2018-06-06T00:31:19Z
     - rm accidentally added file
     - typos at pod
     - update pod
