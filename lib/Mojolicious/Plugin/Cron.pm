@@ -16,7 +16,7 @@ sub register {
   my ($self, $app, $cronhashes) = @_;
   croak "No schedules found" unless ref $cronhashes eq 'HASH';
   $crondir = path($app->config->{cron}{dir} // File::Spec->tmpdir)
-    ->child(CRON_DIR.(getlogin || getpwid($<) || 'nobody'), $app->mode);
+    ->child(CRON_DIR.(getlogin || getpwuid($<) || 'nobody'), $app->mode);
   Mojo::IOLoop->next_tick(sub {
     if (ref((values %$cronhashes)[0]) eq 'CODE') {
 
