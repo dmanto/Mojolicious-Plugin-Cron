@@ -1,6 +1,8 @@
 Revision history for Perl extension Minilla
 
 {{$NEXT}}
+
+0.026 2018-06-25T14:28:24Z
     - Fixes problems on unpriviledges installs after sudo installs
 0.025 2018-06-06T13:10:09Z
 	- Fixed minor typo in the pod (manwar)
