@@ -68,8 +68,8 @@
    },
    "version" : "0.025",
    "x_contributors" : [
-      "Daniel Mantovani <dmanto@gmail.com>",
       "Mohammad S Anwar <mohammad.anwar@yahoo.com>",
+      "dmanto <dmanto@gmail.com>",
       "vagrant <vagrant@vagrant.vm>"
    ],
    "x_serialization_backend" : "JSON::PP version 2.97001"
