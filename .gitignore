@@ -27,3 +27,4 @@ Mojolicious-Plugin-Cron-*
 !META.json
 !LICENSE
 .vstags
+.vscode/
