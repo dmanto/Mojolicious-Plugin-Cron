@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+0.031 2020-07-21T20:36:18Z
+    - fix github action badges
+
 0.030 2020-07-21T19:37:43Z
     - Use github actions instead of travis/appveyor
     - Fix documentation issue (#10) (thanks themage)

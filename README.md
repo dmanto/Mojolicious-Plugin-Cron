@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/dmanto/Mojolicious-Plugin-Cron/workflows/$workflow_name/badge.svg)](https://github.com/dmanto/Mojolicious-Plugin-Cron/actions)
+[![Actions Status](https://github.com/dmanto/Mojolicious-Plugin-Cron/workflows/linux/badge.svg)](https://github.com/dmanto/Mojolicious-Plugin-Cron/actions) [![Actions Status](https://github.com/dmanto/Mojolicious-Plugin-Cron/workflows/windows/badge.svg)](https://github.com/dmanto/Mojolicious-Plugin-Cron/actions) [![Actions Status](https://github.com/dmanto/Mojolicious-Plugin-Cron/workflows/macos/badge.svg)](https://github.com/dmanto/Mojolicious-Plugin-Cron/actions)
 # NAME
 
 Mojolicious::Plugin::Cron - a Cron-like helper for Mojolicious and Mojolicious::Lite projects
