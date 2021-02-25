@@ -150,7 +150,7 @@ of simultaneous scheduled tasks to just one on a multi-host environment.
 That "atomic\_swap" function **needs to be non-blocking**. As this is unlikely the
 case because it will normally imply a remote call, you can just enqueue a job to a [Minion](https://metacpan.org/pod/Minion) queue
 and then inside the task filter out already executed (by other host) tasks by this lock.
-You can see a working proof of concept \[here\](https://github.com/dmanto/clustered-cron-example), using
+You can see a working proof of concept [here](https://github.com/dmanto/clustered-cron-example), using
 an [etcd](https://etcd.io) db as a resilient backend to handle the atomic swap functionality.
 
 # WINDOWS INSTALLATION
