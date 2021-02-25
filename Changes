@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+0.032 2021-02-25T20:25:14Z
+    - expose epoch scheduled time as callback first parameter
+
 0.031 2020-07-21T20:36:18Z
     - fix github action badges
 
