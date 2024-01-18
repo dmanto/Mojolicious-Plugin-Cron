@@ -4,7 +4,7 @@
       "Daniel Mantovani, C<dmanto@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.1.10, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.1.23, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -43,14 +43,14 @@
       "runtime" : {
          "requires" : {
             "Algorithm::Cron" : "0.10",
-            "Mojolicious" : "7.82",
+            "Mojolicious" : "9.35",
             "perl" : "5.020001"
          }
       },
       "test" : {
          "requires" : {
-            "Test2::V0" : "0.000114",
-            "Test::Mock::Time" : "v0.1.7"
+            "Test2::V0" : "0.000159",
+            "Test::Mock::Time" : "v0.2.1"
          }
       }
    },
@@ -62,7 +62,7 @@
       "homepage" : "https://github.com/dmanto/Mojolicious-Plugin-Cron",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/dmanto/Mojolicious-Plugin-Cron.git",
+         "url" : "https://github.com/dmanto/Mojolicious-Plugin-Cron.git",
          "web" : "https://github.com/dmanto/Mojolicious-Plugin-Cron"
       }
    },
@@ -75,6 +75,6 @@
       "Sébastien Feugère <smonff@users.noreply.github.com>",
       "vagrant <vagrant@vagrant.vm>"
    ],
-   "x_serialization_backend" : "JSON::PP version 4.02",
+   "x_serialization_backend" : "JSON::PP version 4.07",
    "x_static_install" : 1
 }

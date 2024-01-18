@@ -76,7 +76,7 @@ sub _cron {
             if (-e $dat && $dat->slurp // '') =~ /(\d+)/;   # do some untainting
           $rtime //= '0';
           if ($rtime != $time) {
-            $dat->spurt($time);
+            $dat->spew($time);
             $fire = 1;
           }
           undef $dat;

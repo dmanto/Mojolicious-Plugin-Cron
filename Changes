@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    - update dependences (mainly Mojolicious@9.35)
+
 0.033 2021-02-25T20:50:55Z
 
     - fix windows workflow (github)
