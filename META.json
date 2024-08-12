@@ -43,7 +43,7 @@
       "runtime" : {
          "requires" : {
             "Algorithm::Cron" : "0.10",
-            "Mojolicious" : "9.35",
+            "Mojolicious" : "9.37",
             "perl" : "5.020001"
          }
       },
@@ -73,6 +73,7 @@
       "Daniel Mantovani <dmanto@gmail.com>",
       "Mohammad S Anwar <mohammad.anwar@yahoo.com>",
       "Sébastien Feugère <smonff@users.noreply.github.com>",
+      "rawleyfowler <rawleyfowler@proton.me>",
       "vagrant <vagrant@vagrant.vm>"
    ],
    "x_serialization_backend" : "JSON::PP version 4.07",

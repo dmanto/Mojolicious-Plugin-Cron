@@ -28,7 +28,8 @@ sub register {
 
       # special case, plugin => 'mm hh dd ...' => sub {}
       $self->_cron($app->moniker,
-        {crontab => (keys %$cronhashes)[0], code => (values %$cronhashes)[0]}, $app);
+        {crontab => (keys %$cronhashes)[0], code => (values %$cronhashes)[0]},
+        $app);
     }
     else {
       $self->_cron($_, $cronhashes->{$_}, $app) for keys %$cronhashes;
