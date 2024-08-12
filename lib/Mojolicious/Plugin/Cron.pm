@@ -263,7 +263,7 @@ Daniel Mantovani, C<dmanto@cpan.org>
 
 =head1 COPYRIGHT AND LICENCE
 
-Copyright (C) 2018-2021, Daniel Mantovani.
+Copyright (C) 2018-2024, Daniel Mantovani.
 
 This library is free software; you may redistribute it and/or modify it under
 the terms of the Artistic License version 2.0.
