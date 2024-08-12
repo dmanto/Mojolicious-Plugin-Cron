@@ -30,7 +30,7 @@ ff(Algorithm::Cron->new(base => 'local', crontab => '0 15 * * *')
     ->next_time(time) - time);
 undef %local_tstamps;
 my @local_at13pm = localtime;
-my $lday = substr fmt_time(@local_at13pm), 0, 10;
+my $lday         = substr fmt_time(@local_at13pm), 0, 10;
 ff(3630);    # 1 h 30 secs from 3PM, local time
 is \%local_tstamps,
   {
