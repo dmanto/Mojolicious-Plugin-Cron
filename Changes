@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.035 2024-08-12T21:45:45Z
+
     - exposes $app on code sub, allowing helper accesses on cron jobs (@rayleyfowler)
     - update dependences (Mojolicious@9.36)
 
